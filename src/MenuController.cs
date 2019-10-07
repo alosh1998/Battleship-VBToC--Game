@@ -315,7 +315,7 @@ static class MenuController
 	{
 		switch (button) {
 			case GAME_MENU_RETURN_BUTTON:
-				//GameController.EndCurrentState();
+				GameController.EndCurrentState();
 				break;
 			case GAME_MENU_SURRENDER_BUTTON:
 				GameController.EndCurrentState();

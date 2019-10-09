@@ -24,10 +24,10 @@ static class MenuController
 	/// </remarks>
 	private static readonly string[][] _menuStructure = {
 		new string[] {
-			"PLAY",
-			"SETUP",
-			"SCORES",
-			"QUIT"
+			"PLAY GAME",
+			"DIFFICULITY",
+			"SCORE LIST",
+			"QUIT GAME"
 		},
 		new string[] {
 			"RETURN",
@@ -35,7 +35,6 @@ static class MenuController
 			"QUIT"
 		},
 		new string[] {
-			"EASY",
 			"MEDIUM",
 			"HARD"
 		}
@@ -43,9 +42,9 @@ static class MenuController
 	};
 	private const int MENU_TOP = 575;
 	private const int MENU_LEFT = 30;
-	private const int MENU_GAP = 0;
+	private const int MENU_GAP = 5;
 	private const int BUTTON_WIDTH = 75;
-	private const int BUTTON_HEIGHT = 15;
+	private const int BUTTON_HEIGHT = 75;
 	private const int BUTTON_SEP = BUTTON_WIDTH + MENU_GAP;
 
 	private const int TEXT_OFFSET = 0;
@@ -67,9 +66,9 @@ static class MenuController
 	private const int GAME_MENU_SURRENDER_BUTTON = 1;
 
 	private const int GAME_MENU_QUIT_BUTTON = 2;
-	private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
+	private static readonly Color MENU_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
 
-	private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
+	private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
 	/// <summary>
 	/// Handles the processing of user input when the main menu is showing
 	/// </summary>
@@ -112,8 +111,20 @@ static class MenuController
 	private static bool HandleMenuInput(int menu, int level, int xOffset)
 	{
 		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
-			GameController.EndCurrentState();
+			//GameController.EndCurrentState();
 			return true;
+			 Counter _seconds = new Counter("Seconds");
+
+		 for (int z = 0; z < 5; z++)
+                    {
+                        _seconds.Increment();
+                        Thread.Sleep(1000);
+                        if (_seconds.Value == 5)
+                        {
+                            _seconds.Value = 0;
+                            GameController.EndCurrentState();
+                        }
+                    }
 		}
 
 		if (SwinGame.MouseClicked(MouseButton.LeftButton)) {
@@ -284,9 +295,7 @@ static class MenuController
 	private static void PerformSetupMenuAction(int button)
 	{
 		switch (button) {
-			case SETUP_MENU_EASY_BUTTON:
-				GameController.SetDifficulty(AIOption.Easy);
-				break;
+			
 			case SETUP_MENU_MEDIUM_BUTTON:
 				GameController.SetDifficulty(AIOption.Medium);
 				break;

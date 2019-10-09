@@ -22,6 +22,21 @@ static class GameLogic
 		do {
 			GameController.HandleUserInput();
 			GameController.DrawScreen();
+			//Changing Resoultion
+			 if (SwinGame.KeyTyped(KeyCode.vk_f)){
+              SwinGame.ChangeScreenSize(1920,1080);
+                }
+            else if(SwinGame.KeyTyped(KeyCode.vk_c)){
+                SwinGame.ChangeScreenSize(800,600);
+                }
+			//Pausing and Resuming the sound/music	
+             if (SwinGame.KeyTyped(KeyCode.vk_m)){
+              SwinGame.PauseMusic();
+
+                }
+            else if(SwinGame.KeyTyped(KeyCode.vk_p)){
+                SwinGame.ResumeMusic();
+                } 
 		} while (!(SwinGame.WindowCloseRequested() == true | GameController.CurrentState == GameState.Quitting));
 
 		SwinGame.StopMusic();

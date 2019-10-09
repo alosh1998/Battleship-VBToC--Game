@@ -18,12 +18,20 @@ public static class GameResources
 		NewFont("Menu", "ffaccess.ttf", 8);
 	}
 
+
 	private static void LoadImages()
 	{
 		//Backgrounds
-		NewImage("Menu", "main_page.jpg");
-		NewImage("Discovery", "discover.jpg");
-		NewImage("Deploy", "deploy.jpg");
+		if (SwinGame.ScreenWidth() == 800 && SwinGame.ScreenHeight() == 600){
+			NewImage("Menu", "main_page.jpg");
+			NewImage("Discovery", "discover.jpg");
+			NewImage("Deploy", "deploy.jpg");
+		}
+		else if (SwinGame.ScreenWidth() == 1920 && SwinGame.ScreenHeight() == 1080){
+			NewImage("Menu", "main_page_extended.jpg");
+			NewImage("Discovery", "discover.jpg");
+			NewImage("Deploy", "deploy.jpg");
+		}
 
 		//Deployment
 		NewImage("LeftRightButton", "deploy_dir_button_horiz.png");

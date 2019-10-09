@@ -6,6 +6,8 @@ using System.Collections.Generic;
 //using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
+using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The menu controller handles the drawing and user interactions
@@ -32,10 +34,11 @@ static class MenuController
 		new string[] {
 			"RETURN",
 			"SURRENDER",
-			"QUIT"
+			"QUIT",
+			"RESET"
 		},
 		new string[] {
-			"EASY"
+			"EASY",
 			"MEDIUM",
 			"HARD"
 		}
@@ -66,10 +69,15 @@ static class MenuController
 	private const int GAME_MENU_RETURN_BUTTON = 0;
 	private const int GAME_MENU_SURRENDER_BUTTON = 1;
 
+	
+
 	private const int GAME_MENU_QUIT_BUTTON = 2;
+	private const int GAME_MENU_RESET_BUTTON = 3;
 	private static readonly Color MENU_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
 
 	private static readonly Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
+
+
 	/// <summary>
 	/// Handles the processing of user input when the main menu is showing
 	/// </summary>
@@ -100,6 +108,7 @@ static class MenuController
 	public static void HandleGameMenuInput()
 	{
 		HandleMenuInput(GAME_MENU, 0, 0);
+	
 	}
 
 	/// <summary>
@@ -112,21 +121,13 @@ static class MenuController
 	private static bool HandleMenuInput(int menu, int level, int xOffset)
 	{
 		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
-			//GameController.EndCurrentState();
+			GameController.EndCurrentState();
 			return true;
-			 Counter _seconds = new Counter("Seconds");
 
-		 for (int z = 0; z < 5; z++)
-                    {
-                        _seconds.Increment();
-                        Thread.Sleep(1000);
-                        if (_seconds.Value == 5)
-                        {
-                            _seconds.Value = 0;
-                            GameController.EndCurrentState();
-                        }
-                    }
 		}
+
+	
+	
 
 		if (SwinGame.MouseClicked(MouseButton.LeftButton)) {
 			int i = 0;
@@ -141,6 +142,7 @@ static class MenuController
 			if (level > 0) {
 				//none clicked - so end this sub menu
 				GameController.EndCurrentState();
+							 	
 			}
 		}
 
@@ -164,9 +166,9 @@ static class MenuController
 	public static void DrawGameMenu()
 	{
 		//Clears the Screen to Black
-		//SwinGame.DrawText("Paused", Color.White, GameFont("ArialLarge"), 50, 50)
+		SwinGame.DrawText("Paused", Color.Black, GameResources.GameFont("ArialLarge"), 300, 400);
 
-		DrawButtons(GAME_MENU);
+		DrawButtons(GAME_MENU);					
 	}
 
 	/// <summary>
@@ -296,9 +298,7 @@ static class MenuController
 	private static void PerformSetupMenuAction(int button)
 	{
 		switch (button) {
-			case SETUP_MENU_EASY_BUTTON:
-				GameController.SetDifficulty(AIOption.Easy);
-				break;
+			
 			case SETUP_MENU_MEDIUM_BUTTON:
 				GameController.SetDifficulty(AIOption.Medium);
 				break;
@@ -316,6 +316,9 @@ static class MenuController
 	/// <param name="button">the button pressed</param>
 	private static void PerformGameMenuAction(int button)
 	{
+		
+
+
 		switch (button) {
 			case GAME_MENU_RETURN_BUTTON:
 				GameController.EndCurrentState();
@@ -329,6 +332,10 @@ static class MenuController
 			case GAME_MENU_QUIT_BUTTON:
 				GameController.AddNewState(GameState.Quitting);
 				break;
+			case GAME_MENU_RESET_BUTTON:
+			GameController.StartGame();
+			break;
+			
 		}
 	}
 }

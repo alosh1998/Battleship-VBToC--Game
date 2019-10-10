@@ -35,7 +35,7 @@ static class MenuController
 			"QUIT"
 		},
 		new string[] {
-			"EASY"
+			"NoWise"
 			"MEDIUM",
 			"HARD"
 		}

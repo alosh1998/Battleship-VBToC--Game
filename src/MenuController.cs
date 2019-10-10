@@ -25,7 +25,7 @@ static class MenuController
 	private static readonly string[][] _menuStructure = {
 		new string[] {
 			"PLAY GAME",
-			"MODES",
+			"DIFFICULTY",
 			"SCORE LIST",
 			"QUIT GAME"
 		},
